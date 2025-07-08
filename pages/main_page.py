@@ -37,7 +37,7 @@ class MainPage(BasePage):
         self.click_element(MainPageLocators.BULKA_IMAGE)
         self.find_element_with_wait(MainPageLocators.INGREDIENT_DETAILS)
         self.click_element(MainPageLocators.CROSS_BUTTON)
-        WebDriverWait(self.driver, 10).until(EC.invisibility_of_element_located(MainPageLocators.INGREDIENT_DETAILS))
+        self.check_invisibility_of_element(MainPageLocators.INGREDIENT_DETAILS)
         return True
     
 
@@ -57,7 +57,7 @@ class MainPage(BasePage):
         target_element = self.find_element_with_wait(MainPageLocators.UPPER_PLACE_FOR_INGREDIENT)
         self.drag_and_drop_element(source_element, target_element)
         self.click_element(MainPageLocators.PLACE_AN_ORDER_BUTTON)
-        WebDriverWait(self.driver, 10).until(EC.invisibility_of_element(MainPageLocators.TITLE_9999))
+        self.check_invisibility_of_element(MainPageLocators.TITLE_9999)
         order_number = self.get_text_from_element(MainPageLocators.CREATED_ORDER_NUMBER)
         status_of_order = self.get_text_from_element(MainPageLocators.STATUS_OF_CREATED_ORDER)
         self.find_element_with_wait(MainPageLocators.CROSS_BUTTON_IN_ORDER_WINDOW)
@@ -97,7 +97,7 @@ class MainPage(BasePage):
         self.click_element(MainPageLocators.ORDERS_FEED)
         self.find_element_with_wait(MainPageLocators.TITLE_IN_WORK)
         order_locator = (By.XPATH, f"//li[contains(@class, 'text_type_digits-default') and contains(normalize-space(.), '{order_number}')]")
-        WebDriverWait(self.driver, 20).until(EC.text_to_be_present_in_element(order_locator, order_number))
+        self.check_text_to_be_present_in_element(order_locator, order_number)
         return self.check_displaying_of_element(order_locator)
     
 

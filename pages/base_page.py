@@ -51,6 +51,16 @@ class BasePage:
         return self.driver.find_element(*locator).is_displayed()
 
 
+    @allure.step("Проверить, что элемент не отображается")
+    def check_invisibility_of_element(self, locator):
+        return WebDriverWait(self.driver, 10).until(EC.invisibility_of_element_located(locator))
+
+
+    @allure.step("Проверить, что текст появился на элементе")
+    def check_text_to_be_present_in_element(self, locator, number):
+        return WebDriverWait(self.driver, 20).until(EC.text_to_be_present_in_element(locator, number))
+
+
     @allure.step("Добавить тест в элемент")
     def add_text_to_element(self, locator, text):
         element = self.find_element_with_wait(locator)
